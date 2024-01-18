@@ -1,0 +1,49 @@
+.cart-Tshirt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.cart-Tshirt h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.amount {
+  font-size: 0.9rem;
+  color: #777;
+  margin-left: 10px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  font-size: 0.8rem;
+  background-color: #e57373;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ef5350;
+}
+
+
