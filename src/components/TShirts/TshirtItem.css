@@ -1,0 +1,33 @@
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+li div {
+    max-width: 60%;
+}
+
+h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+button {
+    padding: 8px 12px;
+    margin-top: 5px;
+    background-color: #e0743e;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d48452;
+}

@@ -1,58 +1,57 @@
-import React, { useContext } from "react";
-import CartContext from "../../Store/CartContext";
-import Modal from "../UI/Modal";
-import classes from "./Cart.module.css";
-import CartTshirt from "./CartTshirt";
+import React, { useContext } from 'react';
+import Modal from '../UI/Modal';
+import classes from './Cart.module.css';
+import CartContext from '../store/cart-context';
 
-const Cart = (props) => {
-  const cartCtx = useContext(CartContext);
+const Cart =(props)=>{
+  const cartctx = useContext(CartContext);
 
-  const totalAmount = `$${cartCtx.totalAmount}`;
-  const ifTshirt = cartCtx.Tshirts.length > 0;
+  const cartItems = (
+    <ul className={classes['cart-items']}>
+      {cartctx.items.map((item) => {
+        const total = (item.quantity.large + item.quantity.medium + item.quantity.small) * item.price;
 
-  const CartTshirtRemove = (id) => {
-    cartCtx.removeTshirt(id);
-  };
-
-  const CartTshirtAdd = (Tshirt) => {           
-    console.log(Tshirt);
-    cartCtx.addTshirt({ ...Tshirt, amount: 1 });
-  };
-  const addProduct = () =>{
-    alert('Successfully Orederd')
-    props.onClose()
-  }
-
-  const Tshirts = (
-    <ul className={classes["cart-Tshirts"]}>
-      {cartCtx.Tshirts.map((Tshirt) => (
-        <CartTshirt
-          key={Tshirt.id}
-          name={Tshirt.name}
-          amount={Tshirt.amount}
-          price={Tshirt.price}
-          onRemove={CartTshirtRemove.bind(null, Tshirt.id)}
-          onAdd={CartTshirtAdd.bind(null, Tshirt)}
-        />
-      ))}
+        return (
+          <li key={item.id} className="cart-item">
+            <div className={classes['cart-item-details']}>
+              <div className={classes["item-name"]}>{item.name}</div>
+              <div className={classes["item-description"]}>{item.description}</div>
+              <div className={classes["item-price"]}>`${item.price}`</div>
+            </div>
+            <div >
+              <div className={classes["item-quantities"]}>L: {item.quantity.large}</div>
+              <div className={classes["item-quantities"]}>M: {item.quantity.medium}</div>
+              <div className={classes["item-quantities"]}>S: {item.quantity.small}</div>
+              <div className={classes["item-quantities"]}>Total: {total}</div>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 
-  return (
-    <Modal onClose={props.onClose}>
-      {Tshirts}
-      <div className={classes.total}>
-        <span>Total Amount</span>
-        <span>{totalAmount}</span>
-      </div>
-      <div className={classes.actions}>
-        <button onClick={props.onClose} className={classes["button--alt"]}>
-          Close
-        </button>
-        {ifTshirt && <button  onClick={addProduct} className={classes.button}>Order</button>}
-      </div>
-    </Modal>
-  );
+  
+  let totalPrice=0;
+  cartctx.items.forEach((item)=>{
+    let totalItems = (+item.quantity.large)+(+item.quantity.medium)+(+item.quantity.small);
+    totalPrice += totalItems*item.price;
+  });
+    return (
+        <Modal onBackDropClick={props.onClose}>
+          {cartItems}
+          <div className={classes.total}>
+            <span>Total Amount</span>
+            <span>`${totalPrice}`</span>
+          </div>
+          <div className={classes.actions}>
+            <button className={classes['button--alt']} onClick={props.onClose}>
+              Close
+            </button>
+            <button className={classes.button}>Order</button>
+          </div>
+        </Modal>
+      );
 };
 
 export default Cart;
+
